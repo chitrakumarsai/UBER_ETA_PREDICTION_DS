@@ -1,4 +1,4 @@
-data
-models
-notebooks
-src
+data/
+models/
+notebooks/
+src/
