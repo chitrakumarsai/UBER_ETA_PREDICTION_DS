@@ -1,6 +1,8 @@
 pandas 
+pickle
 scikit-learn
 xgboost
 streamlit
 skore
 missingno
+joblib
