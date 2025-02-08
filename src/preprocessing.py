@@ -18,6 +18,7 @@ class DataPreprocessing:
         Update column names
         """
         df.rename(columns = {'Weatherconditions': 'Weather_conditions'}, inplace = True)
+        df['Delivery_person_Ratings'] = df['Delivery_person_Ratings'].astype(float).clip(upper=5.0)
         df.columns = df.columns.str.lower().str.replace(' ', '_')
         return df
     def strip_whitespace(self, df: pd.DataFrame) -> pd.DataFrame:
