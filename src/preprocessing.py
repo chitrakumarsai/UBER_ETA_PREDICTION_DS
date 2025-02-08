@@ -20,6 +20,15 @@ class DataPreprocessing:
         df.rename(columns = {'Weatherconditions': 'Weather_conditions'}, inplace = True)
         df.columns = df.columns.str.lower().str.replace(' ', '_')
         return df
+    def strip_whitespace(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Strips leading and trailing whitespaces from specific columns in the given DataFrame df.
+        """
+        df['road_traffic_density'] = df['road_traffic_density'].str.strip()
+        df['type_of_order'] = df['type_of_order'].str.strip()
+        df['type_of_vehicle'] = df['type_of_vehicle'].str.strip()
+        df['city'] = df['city'].str.strip()
+        return df
     
     def extract_feature_value(self, df: pd.DataFrame) -> pd.DataFrame:
         """
@@ -29,7 +38,7 @@ class DataPreprocessing:
         - Strip leading/trailing whitespaces from the object type columns
         """
         df['weather_conditions'] = df['weather_conditions'].apply(lambda x: x.split(' ')[-1].strip())
-        df['city_code'] = df['delivery_person_id'].str.split('res', expand= True)[0]
+        df['city_code'] = df['delivery_person_id'].str.split('RES', expand= True)[0]
         df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
         return df
     
@@ -93,7 +102,7 @@ class DataPreprocessing:
         # Handling categorical columns with the most frequent value
         mode_imp = SimpleImputer(missing_values=np.nan, strategy='most_frequent')
         mode_cols = ["road_traffic_density", "multiple_deliveries", "festival", "city"]
-
+        print("Columns in df before handling nulls:", df.columns)
         for col in mode_cols:
             df[col] = mode_imp.fit_transform(df[[col]]).ravel()  # Fix column reshaping issue
 
@@ -222,17 +231,20 @@ class DataPreprocessing:
 
     def cleaning_steps(self, df):
         self.update_column_name(df)
+        self.strip_whitespace(df)
         self.extract_feature_value(df)
         self.drop_columns(df)
         self.update_datatype(df)
         self.convert_nan(df)
-        print(df.columns)
         self.handle_null_values(df)
+        df.to_csv('./data/interim/cleaned_data.csv', index=False)
+
 
     def perform_feature_engineering(self, df):
         self.extract_date_features(df)
         self.calculate_time_diff(df)
         self.calculate_distance(df)
+        df.to_csv('./data/processed/featured_data.csv', index=False)
 
 
     def evaluate_model(self, y_test, y_pred):
