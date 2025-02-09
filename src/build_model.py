@@ -2,6 +2,7 @@ from preprocessing import *
 
 # Load the data
 df_train = pd.read_csv('./data/external/train.csv')
+df_test = pd.read_csv('./data/external/test.csv')
 
 dp = DataPreprocessing()
 dp.cleaning_steps(df_train)                                # Perform Cleaning

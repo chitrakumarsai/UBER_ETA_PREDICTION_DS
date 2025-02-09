@@ -1,0 +1,11 @@
+
+Delivery_location_latitude is highly overall correlated with Restaurant_latitude and 1 other fields	High correlation
+Delivery_location_longitude is highly overall correlated with Restaurant_longitude and 1 other fields	High correlation
+Delivery_person_Age is highly overall correlated with Vehicle_condition	High correlation
+Delivery_person_Ratings is highly overall correlated with Vehicle_condition	High correlation
+Restaurant_latitude is highly overall correlated with Delivery_location_latitude and 1 other fields	High correlation
+Restaurant_longitude is highly overall correlated with Delivery_location_longitude	High correlation
+Vehicle_condition is highly overall correlated with Delivery_person_Age and 2 other fields	High correlation
+Weatherconditions is highly overall correlated with Vehicle_condition	High correlation
+city_code is highly overall correlated with Delivery_location_latitude and 2 other fields	High correlation
+Festival is highly imbalanced (86.0%)	Imbalance
